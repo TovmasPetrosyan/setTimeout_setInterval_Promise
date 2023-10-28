@@ -1203,10 +1203,11 @@ const array = [
 
 
 
-const p = new Promise((resolve,teject)=>{
+new Promise((resolve,reject)=>{
    const randomDelay = Math.random() * 500 + 500;
-   setTimeout(resolve(array),randomDelay);
-   
-});
-
-console.log(p);
+   console.log("Loading");
+   setTimeout(resolve(array),randomDelay);   
+}).then((array) => {
+    let filterObj = array.filter((item) => item.completed);
+    console.log(filterObj);
+})
