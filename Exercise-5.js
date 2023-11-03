@@ -37,3 +37,25 @@ console.log(2)  // 2
 // քան 32 տողի log-ը, կտպի 1, 33-րդ տողում setTimeout() մեջի callback
 // ֆունկցիան կկատարվի 20 վարկյան հետո։Կմտնի promise բլոկ, տեսնում ենք որ error կա, կմտնի
 // cacth բլոկ կտպի 'Api Error' ու կվերադարձնի "2", որը 30-րդ տողում կտպի 2: Վերջում կտպի 34-րդ տողի log-ը։
+
+
+
+Promise.resolve()
+.then(() => {
+console.log(3)  // 3
+return 1
+})
+.catch(e => console.log(e, 4))
+.finally(res => console.log(res, 5)) //  undefined 5
+.then((res) => console.log(res))  // 1
+console.log(6)  // 6
+let a = 5;
+setTimeout(() => {
+console.log(a);  //5 
+a = 10;
+}, 0);
+// Սկզբից կտպի 6, հետո կանցնի promise-ին, կտպի 3 ու կվերադարձնի 1:
+// Քանի որ արդյունքը վերցնում ենք then -ով , 49-րդ տողում կտպի undefined 5,
+// մյուս տողում կստանանք promise-ի արդյունքը 1: Վերջում կաշխատի setTimeout() 
+// callback ֆունկցիան կտպի 5:
+
