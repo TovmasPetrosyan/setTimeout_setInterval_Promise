@@ -1199,7 +1199,7 @@ const array = [
         "title": "ipsam aperiam voluptates qui",
         "completed": false
     }
-]
+];
 
 
 
@@ -1211,3 +1211,4 @@ new Promise((resolve,reject)=>{
     let filterObj = array.filter((item) => item.completed);
     console.log(filterObj);
 })
+

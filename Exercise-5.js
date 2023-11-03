@@ -14,3 +14,26 @@ Promise.resolve()
 .catch(() => console.log(14))
 .then(() => console.log(15))   // 15
 // Promise.resolve() -ը վերադարձնում է promise, resolve-ի ժամանակ օգտագործում ենք then մեթոդը, reject-ի ժամանակ catch մեթոդը։ Կմտնի then-ի մեջ կտպի 11, հետո կմտնի հաջորդ then-ի կտպի 12 ու error կնետի, կմտնի catch բլոկ կտպի 13: Չի մտնի մյուս catch-ի մեջ քանի որ արդեն գտել ենք error-ի case: Դա էլ իր հերթին վերադարձնում է promise, կտպի then-ի մեջի log-ը 15:
+
+
+Promise.resolve()
+.then(data => {
+throw new Error('Api Error');
+return 1;
+})
+.then(data => console.log('ok'))
+.catch(error => {
+console.log(error.message);// 'Api Error'
+return "2";
+})
+.then(data => {
+console.log(data); // 2
+})
+console.log(1)   // 1
+setTimeout(() => {
+console.log(2)  // 2
+}, 20)
+// Քանի որ ասինխրոն է այսինքն promise, դրա կատարումը կլինի ավելի ուշ
+// քան 32 տողի log-ը, կտպի 1, 33-րդ տողում setTimeout() մեջի callback
+// ֆունկցիան կկատարվի 20 վարկյան հետո։Կմտնի promise բլոկ, տեսնում ենք որ error կա, կմտնի
+// cacth բլոկ կտպի 'Api Error' ու կվերադարձնի "2", որը 30-րդ տողում կտպի 2: Վերջում կտպի 34-րդ տողի log-ը։
